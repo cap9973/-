@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ block.super }} | 홈
+{% endblock %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" id="card">
+            {% for object in object_list %}
+                <div class="card">
+                    {% if object.images %}
+
+                        <img class="card-img-top" src="{{ object.images.url }}" alt="로딩불가" style="width: 300px">
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h6 class="card-title" style="text-align: center">{{ object.user_id.email }}</h6>
+                        <p class="card-text">
+                            {{ object.content }}
+                        </p>
+                    </div>
+                    <div class="dropdown" >
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false" style="float: right">
+                            수정/삭제
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="{% url 'posts:_update' pk=object.pk %}">수정</a></li>
+                            <li><a class="dropdown-item" href="{% url 'posts:_delete' pk=object.pk %}">삭제</a></li>
+
+                        </ul>
+                    </div>
+
+                </div>
+
+                <br>
+            {% endfor %}
+        </div>
+        <div class="col-md-2"></div>
+        <style type="text/css">
+            #card {
+                height: 500px;
+            }
+
+            @media screen and (min-width: 1024px) {
+                myNewDivHeight {
+                    height: 250px;
+                }
+            }
+
+
+            img {
+
+                display: block;
+
+                margin: auto;
+
+            }
+
+        </style>
+
+
+    </div>
+{% endblock %}
